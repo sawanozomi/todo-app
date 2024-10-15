@@ -13,7 +13,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = Task::where('status', false)->get();
 
         return view('tasks.index', compact('tasks'));
     }
@@ -67,7 +67,7 @@ class TaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        
+        if ($request->status === null) {
         $rules = [
             'task_name' => 'required|max:100',
           ];
@@ -79,6 +79,11 @@ class TaskController extends Controller
           $task = Task::find($id);
           $task->name = $request->input('task_name');
           $task->save();
+        } else {
+            $task = Task::find($id);
+            $task->status = true;
+            $task->save();
+        }
           return redirect('/tasks');
     }
 
@@ -87,6 +92,8 @@ class TaskController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Task::find($id)->delete();
+  
+    return redirect('/tasks');
     }
 }
