@@ -44,6 +44,12 @@
                               <a href="/tasks" class="block shrink-0 underline underline-offset-2">
                                   戻る
                               </a>
+                              <select name="categorytype">
+                                    <option value="仕事">仕事</option>
+                                    <option value="趣味">趣味</option>
+                                    <option value="勉強">勉強</option>
+                                    <option value="その他">その他</option>
+                              </select>
                               <button type="submit"
                                   class="p-4 bg-sky-800 text-white w-full max-w-xs hover:bg-sky-900 transition-colors">
                                   編集する

@@ -38,6 +38,13 @@
                                </div>
                             @enderror
                     </label>
+                    
+                    <select name="categorytype">
+                        <option value="仕事">仕事</option>
+                        <option value="趣味">趣味</option>
+                        <option value="勉強">勉強</option>
+                        <option value="その他">その他</option>
+                    </select>
  
                     <button type="submit" class="mt-8 p-4 bg-slate-800 text-white w-full max-w-xs hover:bg-slate-900 transition-colors">
                         追加する
@@ -55,48 +62,56 @@
                               <th scope="col"
                                   class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900">
                                   タスク</th>
+                              <th scope="col"
+                                  class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900">
+                                  カテゴリ</th>
                               <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                                   <span class="sr-only">Actions</span>
                               </th>
                           </tr>
                       </thead>
                       <tbody class="divide-y divide-gray-200 bg-white">
-                          @foreach ($tasks as $item)
+                          @foreach ($tasks as $task)
                               <tr>
                                   <td class="px-3 py-4 text-sm text-gray-500">
                                       <div>
-                                          {{ $item->name }}
+                                          {{ $task->name }}
+                                      </div>
+                                  </td>
+                                <td class="px-3 py-4 text-sm text-gray-500">
+                                      <div>
+                                          {{ $task->category }}
                                       </div>
                                   </td>
                                   <td class="p-0 text-right text-sm font-medium">
                                       <div class="flex justify-end">
                                           <div>
-                                              <form action="/tasks/{{ $item->id }}"
+                                              <form action="/tasks/{{ $task->id }}"
                                                   method="post"
                                                   class="inline-block text-gray-500 font-medium"
                                                   role="menuitem" tabindex="-1">
                                                   @csrf
                                                   @method('PUT')
-                                                  <input type="hidden" name="status" value="{{$item->status}}">
+                                                  <input type="hidden" name="status" value="{{$task->status}}">
                                                   <button type="submit"
                                                       class="bg-emerald-700 py-4 w-20 text-white md:hover:bg-emerald-800 transition-colors">完了</button>
                                               </form>
                                           </div>
                                           <div>
-                                              <a href="/tasks/{{ $item->id }}/edit/"
+                                              <a href="/tasks/{{ $task->id }}/edit/"
                                                   class="inline-block text-center py-4 w-20 underline underline-offset-2 text-sky-600 md:hover:bg-sky-100 transition-colors">編集</a>
                                           </div>
                                           <div>
-  <form onsubmit="return deleteTask();"
-      action="/tasks/{{ $item->id }}" method="post"
-      class="inline-block text-gray-500 font-medium"
-      role="menuitem" tabindex="-1">
-      @csrf
-      @method('DELETE')
-      <button type="submit"
-          class="py-4 w-20 md:hover:bg-slate-200 transition-colors">削除</button>
-  </form>
-</div>
+                                            <form onsubmit="return deleteTask();"
+                                                action="/tasks/{{ $task->id }}" method="post"
+                                                class="inline-block text-gray-500 font-medium"
+                                                role="menuitem" tabindex="-1">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    class="py-4 w-20 md:hover:bg-slate-200 transition-colors">削除</button>
+                                            </form>
+                                            </div>
                                       </div>
                                   </td>
                               </tr>

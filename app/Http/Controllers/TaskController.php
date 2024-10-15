@@ -33,14 +33,14 @@ class TaskController extends Controller
     {
         $rules = [
             'task_name' => 'required|max:100',
-          ];
-         
-          $messages = ['required' => '必須項目です', 'max' => '100文字以下にしてください。'];
-         
-          Validator::make($request->all(), $rules, $messages)->validate();
+        ];
 
+        $messages = ['required' => '必須項目です', 'max' => '100文字以下にしてください。'];
+
+        Validator::make($request->all(), $rules, $messages)->validate();
         $task = new Task;
         $task->name = $request->input('task_name');
+        $task->category = $request->input('categorytype');
         $task->save();
         return redirect('/tasks');
     }
@@ -59,7 +59,7 @@ class TaskController extends Controller
     public function edit(string $id)
     {
         $task = Task::find($id);
-    return view('tasks.edit', compact('task'));
+        return view('tasks.edit', compact('task'));
     }
 
     /**
@@ -68,23 +68,23 @@ class TaskController extends Controller
     public function update(Request $request, string $id)
     {
         if ($request->status === null) {
-        $rules = [
-            'task_name' => 'required|max:100',
-          ];
-        
-          $messages = ['required' => '必須項目です', 'max' => '100文字以下にしてください。'];
-        
-          Validator::make($request->all(), $rules, $messages)->validate();
+            $rules = [
+                'task_name' => 'required|max:100',
+            ];
 
-          $task = Task::find($id);
-          $task->name = $request->input('task_name');
-          $task->save();
+            $messages = ['required' => '必須項目です', 'max' => '100文字以下にしてください。'];
+
+            Validator::make($request->all(), $rules, $messages)->validate();
+
+            $task = Task::find($id);
+            $task->name = $request->input('task_name');
+            $task->save();
         } else {
             $task = Task::find($id);
             $task->status = true;
             $task->save();
         }
-          return redirect('/tasks');
+        return redirect('/tasks');
     }
 
     /**
@@ -93,7 +93,7 @@ class TaskController extends Controller
     public function destroy(string $id)
     {
         Task::find($id)->delete();
-  
-    return redirect('/tasks');
+
+        return redirect('/tasks');
     }
 }
