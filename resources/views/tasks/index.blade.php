@@ -39,12 +39,10 @@
                             @enderror
                         </label>
 
-                        <select name="categorytype">
-                            <option value="仕事">仕事</option>
-                            <option value="趣味">趣味</option>
-                            <option value="勉強">勉強</option>
-                            <option value="その他">その他</option>
-                        </select>
+                        @foreach($Category as $category)
+                        <option value="{{$category->id}}" @if($category->id==$category) selected @endif>
+                            {{$category->name}}</option>
+                        @endforeach
 
                         <button type="submit"
                             class="mt-8 p-4 bg-slate-800 text-white w-full max-w-xs hover:bg-slate-900 transition-colors">
