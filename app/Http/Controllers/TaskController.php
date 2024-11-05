@@ -15,7 +15,7 @@ class TaskController extends Controller
     {
         $tasks = Task::where('status', false)->get();
 
-        return view('tasks.index', compact('tasks'));
+        return view('tasks.index', compact('tasks', 'category'));
     }
 
     /**
@@ -78,6 +78,7 @@ class TaskController extends Controller
 
             $task = Task::find($id);
             $task->name = $request->input('task_name');
+            $task->category = $request->input('categorytype');
             $task->save();
         } else {
             $task = Task::find($id);
