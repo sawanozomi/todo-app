@@ -39,10 +39,12 @@
                             @enderror
                         </label>
 
-                        @foreach($Category as $category)
-                        <option value="{{$category->id}}" @if($category->id==$category) selected @endif>
-                            {{$category->name}}</option>
-                        @endforeach
+                        <select name="categorytype">
+                            @foreach($categories as $category)
+                            <option value="{{$category->id}}">
+                                {{$category->name}}</option>
+                            @endforeach
+                        </select>
 
                         <button type="submit"
                             class="mt-8 p-4 bg-slate-800 text-white w-full max-w-xs hover:bg-slate-900 transition-colors">
@@ -79,7 +81,11 @@
                                         </td>
                                         <td class="px-3 py-4 text-sm text-gray-500">
                                             <div>
-                                                {{ $task->category }}
+                                                @foreach($categories as $category)
+                                                @if($category->id == $task->category)
+                                                {{ $category->name }}
+                                                @endif
+                                                @endforeach
                                             </div>
                                         </td>
                                         <td class="p-0 text-right text-sm font-medium">

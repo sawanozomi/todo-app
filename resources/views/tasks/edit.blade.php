@@ -46,18 +46,12 @@
                             </a>
 
                             <select name="categorytype">
-                                <option value="仕事" @if($task->category == "仕事")
-                                    selected
-                                    @endif > 仕事</option>
-                                <option value="趣味" @if($task->category == "趣味")
-                                    selected
-                                    @endif>趣味</option>
-                                <option value="勉強" @if($task->category == "勉強")
-                                    selected
-                                    @endif>勉強</option>
-                                <option value="その他" @if($task->category == "その他")
-                                    selected
-                                    @endif>その他</option>
+                                @foreach($categories as $category)
+                                <option value="{{$category->id}}" @if ($category->id == $task->category) selected
+                                    @endif>
+                                    {{$category->name}}
+                                </option>
+                                @endforeach
                             </select>
                             <button type="submit"
                                 class="p-4 bg-sky-800 text-white w-full max-w-xs hover:bg-sky-900 transition-colors">
